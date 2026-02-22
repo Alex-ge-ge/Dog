@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>חברת כלבים – בעלי כלבים ודוגיסיטרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --sky: #7eb8da;
+      --sky-soft: #e8f4fc;
+      --sky-dark: #5a9fc9;
+      --white: #ffffff;
+      --bg: #f0f7fc;
+      --bg-glass: rgba(255,255,255,0.88);
+      --bg-glass-strong: rgba(255,255,255,0.95);
+      --blur: 20px;
+      --surface: #ffffff;
+      --pastel-orange: #f4c99b;
+      --pastel-orange-soft: #fdf3e8;
+      --primary: #5a9fc9;
+      --primary-soft: rgba(94,159,201,0.12);
+      --accent: #e8a85c;
+      --accent-soft: rgba(232,168,92,0.15);
+      --text: #2c3e50;
+      --text-muted: #5d6d7e;
+      --border: rgba(94,159,201,0.15);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --radius-lg: 28px;
+      --touch: 52px;
+      --shadow-soft: 0 4px 20px rgba(94,159,201,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-card: 0 8px 32px rgba(94,159,201,0.1);
+      --shadow-hover: 0 12px 40px rgba(94,159,201,0.12);
+      --font: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+      --transition-fast: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      background-image: linear-gradient(160deg, var(--sky-soft) 0%, var(--bg) 50%, var(--pastel-orange-soft) 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 96px;
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: screenFadeIn 0.4s ease forwards;
+    }
+    .screen.active { display: block; }
+    @keyframes screenFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      border: 1px solid var(--border);
+      border-top: none;
+      transition: box-shadow var(--transition), background var(--transition);
+    }
+    .back-btn {
+      width: 48px; height: 48px;
+      border: none;
+      background: rgba(255,255,255,0.6);
+      border-radius: var(--radius-sm);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform var(--transition-fast), background var(--transition-fast);
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.9); }
+    .back-btn:active { transform: scale(0.94); }
+    header h1 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.03em; }
+
+    .card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow-card); border-color: rgba(94,159,201,0.2); }
+    .card-title { font-size: 1.06rem; font-weight: 600; margin-bottom: 8px; }
+    .card-muted { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 17px;
+      font-family: inherit;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition-fast);
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    input:active, textarea:active { transform: scale(1); }
+    textarea { min-height: 92px; resize: vertical; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: var(--touch);
+      padding: 0 28px;
+      border-radius: var(--radius-sm);
+      font-size: 1.03rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: transform var(--transition-fast), box-shadow var(--transition), background var(--transition), opacity var(--transition);
+    }
+    .btn:hover { opacity: 0.92; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(94,159,201,0.3); }
+    .btn-primary:hover { box-shadow: 0 6px 24px rgba(94,159,201,0.4); }
+    .btn-secondary { background: var(--bg-glass); color: var(--text); border: 1px solid var(--border); backdrop-filter: blur(12px); }
+    .btn-secondary:hover { background: var(--white); border-color: var(--primary); }
+    .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(232,168,92,0.35); }
+    .btn-accent:hover { box-shadow: 0 6px 24px rgba(232,168,92,0.45); }
+    .btn-danger { background: #c0392b; color: #fff; min-height: 44px; padding: 0 18px; width: auto; }
+    .btn-danger:hover { opacity: 0.9; }
+    .btn-block { display: flex; margin-top: 12px; }
+    .btn .fa, .btn .icon-emoji { font-size: 1.22em; opacity: 0.95; }
+
+    .hero {
+      text-align: center;
+      padding: 40px 16px 32px;
+    }
+    .hero-visual {
+      width: 100%;
+      max-width: 220px;
+      height: 160px;
+      margin: 0 auto 24px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none'%3E%3Cpath d='M100 28c-18 0-34 12-40 28-4 10-2 22 4 32 4 6 10 10 16 12 4 2 8 2 12 0 2 0 4-2 6-4 2-2 4-6 4-10 0-4-2-8-6-10-2-2-4-2-6 0-4 2-8 4-14 4-6 0-12-2-16-6-8-8-10-20-6-32 6-16 22-28 40-28z' fill='%235a9fc9' opacity='0.35'/%3E%3Cpath d='M72 58c-4 0-8 2-10 6-2 4 0 8 4 10 2 2 4 2 6 2 4 0 8-2 10-6 2-4 0-8-4-10-2 0-4-2-6-2zm56 0c-2 0-4 0-6 2-4 2-6 6-4 10 2 4 6 6 10 6 2 0 4 0 6-2 4-2 6-6 4-10-2-4-6-6-10-6z' fill='%235a9fc9' opacity='0.4'/%3E%3Cpath d='M88 78c0-6 6-12 12-12s12 6 12 12-6 12-12 12-12-6-12-12z' fill='%235a9fc9' opacity='0.3'/%3E%3Cpath d='M100 42c-2 0-4 2-4 4v8c0 2 2 4 4 4s4-2 4-4v-8c0-2-2-4-4-4z' fill='%235a9fc9' opacity='0.5'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    .hero h2 { font-size: 1.9rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.03em; }
+    .hero p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.04rem; }
+    .role-btns { display: flex; flex-direction: column; gap: 16px; max-width: 360px; margin: 0 auto; }
+    .role-btns .btn { min-height: 62px; font-size: 1.1rem; border-radius: var(--radius); padding: 0 28px; }
+    .role-btns .btn .fa, .role-btns .btn .icon-emoji { font-size: 1.45em; }
+
+    .avatar-wrap {
+      width: 128px; height: 128px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--sky-soft);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 3px solid var(--bg-glass);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition-fast), box-shadow var(--transition);
+    }
+    .avatar-wrap:hover { box-shadow: var(--shadow-card); }
+    .avatar-wrap:active { transform: scale(0.97); }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-wrap span { color: var(--text-muted); font-size: 0.9rem; }
+    input[type="file"] { display: none; }
+
+    .radio-group, .checkbox-group { margin-bottom: 18px; }
+    .radio-group label, .checkbox-group label { font-weight: normal; margin-bottom: 0; }
+    .radio-option, .check-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px 20px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      cursor: pointer;
+      min-height: var(--touch);
+      transition: border-color var(--transition), background var(--transition), transform var(--transition-fast);
+    }
+    .radio-option:hover, .check-option:hover { background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.1); }
+    .radio-option:active, .check-option:active { transform: scale(0.99); }
+    .radio-option:has(input:checked), .check-option:has(input:checked) {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .radio-option input, .check-option input { width: auto; margin: 0; accent-color: var(--primary); }
+    .check-option-terms { align-items: flex-start; min-height: auto; padding: 14px 18px; }
+    .check-option-terms input { margin-top: 4px; flex-shrink: 0; }
+    .check-option-terms a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .check-option-terms a:hover { text-decoration: underline; }
+
+    .ad-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .ad-badge.walk { background: var(--primary-soft); color: var(--primary); }
+    .ad-badge.sitting { background: var(--pastel-orange-soft); color: #b87333; }
+    .ad-meta { color: var(--text-muted); font-size: 0.92rem; margin-top: 6px; }
+    .ad-amount { font-weight: 600; color: var(--primary); margin-top: 4px; }
+
+    .list-item {
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur));
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition);
+    }
+    .list-item:hover { box-shadow: var(--shadow-card); }
+    .list-item:active { transform: scale(0.99); }
+    .list-item h3 { font-size: 1.02rem; margin-bottom: 4px; }
+    .list-item p { font-size: 0.92rem; color: var(--text-muted); }
+
+    .candidate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .candidate-row:last-child { border-bottom: none; }
+    .candidate-info { flex: 1; }
+    .candidate-name { font-weight: 600; }
+    .candidate-details { font-size: 0.92rem; color: var(--text-muted); margin-top: 2px; }
+    .phone-reveal { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-top: 8px; }
+    .sitter-rating { color: var(--accent); font-size: 0.9rem; margin-top: 2px; }
+    .sitter-rating .fa-star { margin-left: 1px; }
+
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      padding: 14px 20px;
+      box-shadow: 0 -4px 32px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      z-index: 20;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .nav-bar .btn { width: auto; min-width: 140px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .empty-state .btn { margin-top: 18px; max-width: 280px; margin-left: auto; margin-right: auto; }
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: var(--shadow-medium);
+    }
+    .toast.show { opacity: 1; }
+
+    .auth-form { max-width: 380px; margin: 0 auto; padding: 28px 0; }
+    .auth-form .card { margin-bottom: 22px; border-radius: var(--radius-lg); }
+    .auth-form .btn-block { margin-top: 14px; }
+    .auth-divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; color: var(--text-muted); font-size: 0.92rem; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: var(--touch);
+      padding: 0 22px;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--text);
+      transition: background var(--transition), transform var(--transition), border-color var(--transition);
+    }
+    .btn-google:hover { background: var(--bg); border-color: var(--primary-soft); }
+    .btn-google:active { transform: scale(0.98); }
+    .auth-footer { text-align: center; margin-top: 24px; font-size: 0.98rem; }
+    .auth-footer a { color: var(--primary); font-weight: 600; cursor: pointer; text-decoration: none; transition: opacity var(--transition); }
+    .auth-footer a:hover { opacity: 0.85; }
+    .auth-footer a:active { opacity: 0.7; }
+    .logout-btn { margin-top: 14px; }
+
+    .app-footer {
+      text-align: center;
+      padding: 24px 16px 16px;
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .app-footer a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .app-footer a:hover { color: var(--primary); }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.show { opacity: 1; visibility: visible; }
+    .modal-box {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      max-height: 85vh;
+      overflow: auto;
+      padding: 28px;
+      box-shadow: var(--shadow-medium);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-box { background: var(--bg-glass-strong); backdrop-filter: blur(var(--blur)); border: 1px solid var(--border); }
+    .modal-box h3 { margin-bottom: 16px; font-size: 1.2rem; }
+    .modal-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 12px; }
+    .modal-close { margin-top: 20px; width: 100%; }
+
+    .admin-panel .card { margin-bottom: 24px; }
+    .admin-section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .admin-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .admin-row:last-child { border-bottom: none; }
+    .admin-row .admin-row-text { flex: 1; min-width: 0; font-size: 0.95rem; }
+    .admin-row .btn-danger, .admin-row .btn-warning, .admin-row .btn-edit { flex-shrink: 0; min-height: 40px; padding: 0 14px; }
+    .btn-warning { background: #c0392b; color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--transition-fast); }
+    .btn-warning:hover { opacity: 0.9; }
+    .btn-edit { background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.95rem; min-height: 40px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; }
+    .admin-user-card { background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; }
+    .admin-user-card .user-summary { font-weight: 600; margin-bottom: 8px; }
+    .admin-user-card .user-details { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .admin-user-card .user-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .admin-user-card.warned { border-color: #c0392b; background: rgba(192,57,43,0.06); }
+    .rating-stars { display: flex; gap: 4px; margin: 12px 0; cursor: pointer; }
+    .rating-stars .fa-star { font-size: 1.8rem; color: var(--border); transition: color var(--transition-fast); }
+    .rating-stars .fa-star.filled { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <!-- מסך התחברות -->
+  <section id="screen-login" class="screen active">
+    <div class="hero">
+      <div class="hero-visual" aria-hidden="true"></div>
+      <h2>חברת כלבים</h2>
+      <p>התחבר לחשבון שלך</p>
+    </div>
+    <div class="auth-form">
+      <div class="card">
+        <label for="login-email">אימייל או שם משתמש</label>
+        <input type="text" id="login-email" placeholder="your@email.com או שם משתמש" autocomplete="username" />
+        <label for="login-password">סיסמה</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+        <button type="button" class="btn btn-primary btn-block" id="btn-login">התחברות</button>
+        <div class="auth-divider">או</div>
+        <button type="button" class="btn-google" id="btn-login-google">
+          <span aria-hidden="true">G</span> התחברות באמצעות Google
+        </button>
+      </div>
+      <div class="auth-footer">
+        <span>אין לך חשבון? </span><a id="link-to-register">הרשם</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- מסך הרשמה -->
+  <section id="screen-register" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>הרשמה</h1>
+    </header>
+    <div class="auth-form">
+      <div class="card">
+        <label for="reg-email">אימייל</label>
+        <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email" />
+        <label for="reg-password">סיסמה</label>
+        <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password" />
+        <label class="check-option check-option-terms">
+          <input type="checkbox" id="reg-terms" />
+          <span>קראתי ואני מסכים/ה ל<a href="#" id="link-terms-register">תקנון ולתנאי השימוש</a></span>
+        </label>
+        <button type="button" class="btn btn-primary btn-block" id="btn-register">יצירת חשבון</button>
+        <div class="auth-divider">או</div>
+        <button type="button" class="btn-google" id="btn-register-google">
+          <span aria-hidden="true">G</span> התחברות באמצעות Google
+        </button>
+      </div>
+      <div class="auth-footer">
+        <span>כבר יש לך חשבון? </span><a id="link-to-login">התחבר</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- מסך בית -->
+  <section id="screen-home" class="screen">
+    <div class="hero">
+      <div class="hero-visual" aria-hidden="true"></div>
+      <h2>חברת כלבים</h2>
+      <p>חיבור בין בעלי כלבים לדוגיסיטרים</p>
+      <div class="role-btns">
+        <button type="button" class="btn btn-primary" data-go="owner-profile">
+          <i class="fa-solid fa-dog" aria-hidden="true"></i>
+          אני בעל/ת כלב
+        </button>
+        <button type="button" class="btn btn-accent" data-go="sitter-profile">
+          <i class="fa-solid fa-paw" aria-hidden="true"></i>
+          אני דוגיסיטר/ית
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-muted">כבר יש לך פרופיל? גלוש ללוח המודעות או למודעות שלי.</p>
+      <button type="button" class="btn btn-secondary btn-block" data-go="bulletin"><i class="fa-solid fa-list" aria-hidden="true"></i> לוח מודעות לדוגיסיטרים</button>
+      <button type="button" class="btn btn-secondary btn-block" data-go="my-ads"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> המודעות שלי (בעל כלב)</button>
+      <button type="button" class="btn btn-secondary btn-block logout-btn" id="btn-logout"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> התנתק</button>
+    </div>
+    <footer class="app-footer">
+      <a href="#" id="link-terms">תקנון ותנאי שימוש</a>
+    </footer>
+  </section>
+
+  <!-- פרופיל בעל כלב -->
+  <section id="screen-owner-profile" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>פרופיל בעל כלב</h1>
+    </header>
+    <div class="card">
+      <label>תמונת פרופיל</label>
+      <div class="avatar-wrap" id="owner-avatar-wrap" role="button" tabindex="0">
+        <span>לחץ להעלאה</span>
+      </div>
+      <input type="file" id="owner-photo" accept="image/*" />
+      <label for="owner-name">שם</label>
+      <input type="text" id="owner-name" placeholder="השם שלך" />
+      <label for="owner-phone">טלפון</label>
+      <input type="tel" id="owner-phone" placeholder="050-0000000" />
+      <label for="owner-sensitivities">רגישויות / הערות (לכלב)</label>
+      <textarea id="owner-sensitivities" placeholder="למשל: אלרגיה למזון מסוים, פחד מרעשים..."></textarea>
+      <button type="button" class="btn btn-primary btn-block" id="save-owner-profile">שמירה</button>
+    </div>
+  </section>
+
+  <!-- פרופיל דוגיסיטר -->
+  <section id="screen-sitter-profile" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>פרופיל דוגיסיטר</h1>
+    </header>
+    <div class="card">
+      <label for="sitter-name">שם</label>
+      <input type="text" id="sitter-name" placeholder="השם שלך" />
+      <label for="sitter-phone">טלפון</label>
+      <input type="tel" id="sitter-phone" placeholder="050-0000000" />
+      <label for="sitter-details">פרטים (ניסיון, אזור, גודל כלבים וכו')</label>
+      <textarea id="sitter-details" placeholder="ספר קצת על עצמך..."></textarea>
+      <button type="button" class="btn btn-primary btn-block" id="save-sitter-profile">שמירה</button>
+    </div>
+  </section>
+
+  <!-- יצירת מודעה -->
+  <section id="screen-create-ad" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>מודעה חדשה</h1>
+    </header>
+    <div class="card">
+      <label>סוג שירות</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="ad-type" value="single_walk" checked />
+          טיול בודד
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="ad-type" value="daily_sitting" />
+          שמירה יומית
+        </label>
+      </div>
+      <label for="ad-time">טווח שעות (למשל 08:00–12:00)</label>
+      <input type="text" id="ad-time" placeholder="08:00–12:00" />
+      <label>טיול בלהקה או לבד?</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="ad-group" value="solo" checked />
+          לבד
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="ad-group" value="group" />
+          בלהקה
+        </label>
+      </div>
+      <label for="ad-notes">הערות חופשיות</label>
+      <textarea id="ad-notes" placeholder="הערות נוספות..."></textarea>
+      <label for="ad-amount">סכום תשלום מבוקש (₪)</label>
+      <input type="number" id="ad-amount" placeholder="50" min="0" />
+      <label>אמצעי תשלום</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="ad-payment" value="cash" checked />
+          מזומן
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="ad-payment" value="bit" />
+          ביט
+        </label>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="publish-ad">פרסום מודעה</button>
+    </div>
+  </section>
+
+  <!-- לוח מודעות (דוגיסיטרים) -->
+  <section id="screen-bulletin" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>לוח מודעות</h1>
+      <button type="button" class="btn btn-secondary" id="btn-my-applications" style="margin-right:auto;min-height:40px">המועמדויות שלי</button>
+    </header>
+    <div id="bulletin-list"></div>
+    <div id="bulletin-empty" class="empty-state" style="display:none;">
+      <p>אין מודעות פתוחות כרגע.</p>
+    </div>
+  </section>
+
+  <!-- המודעות שלי + מועמדים (בעל כלב) -->
+  <section id="screen-my-ads" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>המודעות שלי</h1>
+    </header>
+    <div id="my-ads-list"></div>
+    <div id="my-ads-empty" class="empty-state" style="display:none;">
+      <p>אין לך מודעות. צור פרופיל ופרסם מודעה.</p>
+      <button type="button" class="btn btn-primary" data-go="owner-profile">לפרופיל שלי</button>
+      <button type="button" class="btn btn-accent" data-go="create-ad">מודעה חדשה</button>
+    </div>
+    <div class="nav-bar">
+      <button type="button" class="btn btn-primary" data-go="create-ad">מודעה חדשה</button>
+    </div>
+  </section>
+
+  <!-- מועמדים למודעה ספציפית -->
+  <section id="screen-candidates" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>מועמדים</h1>
+    </header>
+    <div id="candidates-ad-info" class="card"></div>
+    <div id="candidates-list"></div>
+    <div id="candidates-empty" class="empty-state" style="display:none;">
+      <p>עדיין אין מועמדים.</p>
+    </div>
+  </section>
+
+  <!-- מודעה בודדת (להגשת מועמדות) -->
+  <section id="screen-ad-detail" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>פרטי מודעה</h1>
+    </header>
+    <div id="ad-detail-content" class="card"></div>
+    <div class="card">
+      <button type="button" class="btn btn-primary btn-block" id="submit-candidacy">הגש מועמדות</button>
+    </div>
+  </section>
+
+  <!-- המבקשות שלי (דוגיסיטר) -->
+  <section id="screen-my-applications" class="screen">
+    <header>
+      <button type="button" class="back-btn" data-back aria-label="חזרה">←</button>
+      <h1>המועמדויות שלי</h1>
+    </header>
+    <div id="my-applications-list"></div>
+    <div id="my-applications-empty" class="empty-state" style="display:none;">
+      <p>עדיין לא הגשת מועמדות.</p>
+      <button type="button" class="btn btn-primary" data-go="bulletin">לוח מודעות</button>
+    </div>
+  </section>
+
+  <!-- פאנל ניהול (מנהל) -->
+  <section id="screen-admin" class="screen admin-panel">
+    <header>
+      <button type="button" class="back-btn" id="admin-logout" aria-label="התנתק וחזור">←</button>
+      <h1>פאנל ניהול</h1>
+    </header>
+    <div class="card">
+      <h2 class="admin-section-title"><i class="fa-solid fa-users" aria-hidden="true"></i> כל המשתמשים במערכת</h2>
+      <div id="admin-users-list"></div>
+      <div id="admin-users-empty" class="empty-state" style="display:none;">אין משתמשים רשומים.</div>
+    </div>
+    <div class="card">
+      <h2 class="admin-section-title"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> מודעות פעילות</h2>
+      <div id="admin-ads-list"></div>
+      <div id="admin-ads-empty" class="empty-state" style="display:none;">אין מודעות פעילות.</div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <div class="modal-overlay" id="modal-terms" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-labelledby="terms-title">
+      <h3 id="terms-title">תקנון ותנאי שימוש</h3>
+      <p>ברוכים הבאים לאפליקציית חברת כלבים. השימוש בשירותים המוצעים באפליקציה כפוף לתקנון זה.</p>
+      <p>משתמשים מתבקשים לנהוג באחריות ובכבוד כלפי בעלי חיים וכלפי משתמשים אחרים. אנו שומרים את הזכות להסיר תוכן או חשבונות המפרים את התקנון.</p>
+      <p>השירות ניתן "כמות שהוא". לא נושאים באחריות לנזקים עקיפים או ישירים הנובעים משימוש באפליקציה.</p>
+      <p>עדכונים לתקנון יפורסמו כאן. המשך שימוש לאחר עדכון מהווה הסכמה לתנאים המעודכנים.</p>
+      <button type="button" class="btn btn-secondary modal-close" id="btn-close-terms">סגור</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-edit-ad" aria-hidden="true">
+    <div class="modal-box" role="dialog" style="max-width:520px">
+      <h3>עריכת מודעה</h3>
+      <label>סוג שירות</label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="edit-ad-type" value="single_walk" /> טיול בודד</label>
+        <label class="radio-option"><input type="radio" name="edit-ad-type" value="daily_sitting" /> שמירה יומית</label>
+      </div>
+      <label for="edit-ad-time">טווח שעות</label>
+      <input type="text" id="edit-ad-time" placeholder="08:00–12:00" />
+      <label>טיול</label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="edit-ad-group" value="solo" /> לבד</label>
+        <label class="radio-option"><input type="radio" name="edit-ad-group" value="group" /> בלהקה</label>
+      </div>
+      <label for="edit-ad-notes">הערות</label>
+      <textarea id="edit-ad-notes" rows="2"></textarea>
+      <label for="edit-ad-amount">סכום (₪)</label>
+      <input type="number" id="edit-ad-amount" min="0" />
+      <label>תשלום</label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="edit-ad-payment" value="cash" /> מזומן</label>
+        <label class="radio-option"><input type="radio" name="edit-ad-payment" value="bit" /> ביט</label>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="btn-save-edit-ad">שמירת שינויים</button>
+      <button type="button" class="btn btn-secondary btn-block modal-close" id="btn-cancel-edit-ad">ביטול</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-edit-username" aria-hidden="true">
+    <div class="modal-box" role="dialog">
+      <h3>עריכת אימייל/שם משתמש</h3>
+      <label for="edit-user-email">אימייל חדש</label>
+      <input type="text" id="edit-user-email" placeholder="email@example.com" />
+      <button type="button" class="btn btn-primary btn-block" id="btn-save-edit-username">שמירה</button>
+      <button type="button" class="btn btn-secondary btn-block modal-close" id="btn-cancel-edit-username">ביטול</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-warning" aria-hidden="true">
+    <div class="modal-box" role="dialog">
+      <h3>הגדרת אזהרה למשתמש</h3>
+      <label for="warning-reason">סיבה</label>
+      <input type="text" id="warning-reason" placeholder="למשל: הברזה" value="הברזה" />
+      <label for="warning-days">משך (ימים)</label>
+      <input type="number" id="warning-days" value="3" min="1" max="365" />
+      <button type="button" class="btn btn-danger btn-block" id="btn-save-warning">הפעל אזהרה</button>
+      <button type="button" class="btn btn-secondary btn-block modal-close" id="btn-cancel-warning">ביטול</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-rate" aria-hidden="true">
+    <div class="modal-box" role="dialog">
+      <h3>דרג את הדוגיסיטר</h3>
+      <div class="rating-stars" id="rate-stars" role="group" aria-label="דירוג 1-5 כוכבים">
+        <i class="fa-regular fa-star" data-r="1"></i><i class="fa-regular fa-star" data-r="2"></i><i class="fa-regular fa-star" data-r="3"></i><i class="fa-regular fa-star" data-r="4"></i><i class="fa-regular fa-star" data-r="5"></i>
+      </div>
+      <label for="rate-recommendation">המלצה או הערה (אופציונלי)</label>
+      <textarea id="rate-recommendation" rows="3" placeholder="המלצה או דיס-המלצה..."></textarea>
+      <button type="button" class="btn btn-primary btn-block" id="btn-submit-rate">שליחת דירוג</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE = {
+      auth_users: 'auth_users',
+      owners: 'dog_owners',
+      sitters: 'dog_sitters',
+      ads: 'dog_ads',
+      applications: 'dog_applications',
+      user_warnings: 'user_warnings',
+      sitter_ratings: 'sitter_ratings'
+    };
+    const CURRENT_USER_KEY = 'current_user_id';
+    const RETURN_TO_KEY = 'auth_return_to';
+    const ADMIN_SESSION_KEY = 'admin_session';
+    const ADMIN_USERNAME = 'AlexTheAdmin';
+    const ADMIN_PASSWORD = 'MyClaudia!@';
+    const PROTECTED_SCREENS = ['owner-profile', 'sitter-profile', 'create-ad', 'my-ads', 'bulletin', 'ad-detail', 'my-applications', 'candidates'];
+
+    function load(key, def = []) {
+      try {
+        const s = localStorage.getItem(key);
+        return s ? JSON.parse(s) : def;
+      } catch (_) { return def; }
+    }
+    function save(key, data) {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    function getCurrentUserId() {
+      return localStorage.getItem(CURRENT_USER_KEY);
+    }
+    function setCurrentUser(userId) {
+      localStorage.setItem(CURRENT_USER_KEY, userId);
+    }
+    function clearCurrentUser() {
+      localStorage.removeItem(CURRENT_USER_KEY);
+    }
+
+    function getCurrentOwnerId() {
+      const uid = getCurrentUserId();
+      if (!uid) return null;
+      const owners = load(STORAGE.owners);
+      const o = owners.find(x => x.userId === uid);
+      return o ? o.id : null;
+    }
+    function getCurrentSitterId() {
+      const uid = getCurrentUserId();
+      if (!uid) return null;
+      const sitters = load(STORAGE.sitters);
+      const s = sitters.find(x => x.userId === uid);
+      return s ? s.id : null;
+    }
+
+    function requireAuth(wantedScreen) {
+      if (getCurrentUserId()) return true;
+      localStorage.setItem(RETURN_TO_KEY, wantedScreen || 'home');
+      showToast('נא להתחבר או להירשם');
+      showScreen('login');
+      return false;
+    }
+
+    function hasActiveWarning(userId) {
+      if (!userId) return false;
+      const warnings = load(STORAGE.user_warnings);
+      const now = Date.now();
+      return warnings.some(w => w.userId === userId && w.expiresAt > now);
+    }
+    function getAverageRating(sitterId) {
+      const ratings = load(STORAGE.sitter_ratings).filter(r => r.sitterId === sitterId);
+      if (ratings.length === 0) return null;
+      const sum = ratings.reduce((a, r) => a + r.stars, 0);
+      return Math.round((sum / ratings.length) * 10) / 10;
+    }
+
+    let screenStack = ['login'];
+    function showScreen(id, isBack) {
+      const active = document.querySelector('.screen.active');
+      const currentId = active ? active.id.replace('screen-', '') : null;
+      if (!isBack && currentId && currentId !== id) screenStack.push(currentId);
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const el = document.getElementById('screen-' + id);
+      if (el) el.classList.add('active');
+      if (id === 'bulletin') renderBulletin();
+      if (id === 'my-ads') renderMyAds();
+      if (id === 'my-applications') renderMyApplications();
+      if (id === 'admin') renderAdminPanel();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    document.querySelectorAll('[data-go]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.go;
+        if (PROTECTED_SCREENS.includes(target) && !requireAuth(target)) return;
+        showScreen(target);
+      });
+    });
+
+    document.getElementById('link-to-register').addEventListener('click', () => showScreen('register'));
+    document.getElementById('link-to-login').addEventListener('click', () => showScreen('login'));
+
+    document.getElementById('btn-login').addEventListener('click', () => {
+      const emailOrUser = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!emailOrUser || !password) { showToast('נא למלא אימייל/שם משתמש וסיסמה'); return; }
+      if (emailOrUser === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+        showToast('התחברת כמנהל');
+        showScreen('admin');
+        renderAdminPanel();
+        return;
+      }
+      const email = emailOrUser.toLowerCase();
+      const users = load(STORAGE.auth_users);
+      const user = users.find(u => u.email === email && u.password === password);
+      if (!user) { showToast('אימייל או סיסמה שגויים'); return; }
+      setCurrentUser(user.id);
+      const returnTo = localStorage.getItem(RETURN_TO_KEY) || 'home';
+      localStorage.removeItem(RETURN_TO_KEY);
+      showToast('התחברת בהצלחה');
+      screenStack = returnTo === 'home' ? ['home'] : ['home', returnTo];
+      showScreen(returnTo, true);
+    });
+
+    document.getElementById('btn-register').addEventListener('click', () => {
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const password = document.getElementById('reg-password').value;
+      const termsChecked = document.getElementById('reg-terms').checked;
+      if (!email || !password) { showToast('נא למלא אימייל וסיסמה'); return; }
+      if (password.length < 6) { showToast('הסיסמה חייבת להכיל לפחות 6 תווים'); return; }
+      if (!termsChecked) { showToast('נא לאשר שקראת והסכמת לתקנון ולתנאי השימוש'); return; }
+      const users = load(STORAGE.auth_users);
+      if (users.some(u => u.email === email)) { showToast('כתובת האימייל כבר רשומה'); return; }
+      const user = { id: 'u_' + Date.now(), email, password, provider: 'email', createdAt: Date.now() };
+      users.push(user);
+      save(STORAGE.auth_users, users);
+      setCurrentUser(user.id);
+      showToast('נרשמת בהצלחה');
+      showScreen('home');
+    });
+
+    function openTermsModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('modal-terms');
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+    function closeTermsModal() {
+      const modal = document.getElementById('modal-terms');
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    document.getElementById('link-terms').addEventListener('click', openTermsModal);
+    document.getElementById('link-terms-register').addEventListener('click', openTermsModal);
+    document.getElementById('btn-close-terms').addEventListener('click', closeTermsModal);
+    document.getElementById('modal-terms').addEventListener('click', (e) => { if (e.target.id === 'modal-terms') closeTermsModal(); });
+
+    function openRateModal() {
+      window._rateStars = 0;
+      const starsEl = document.getElementById('rate-stars');
+      starsEl.querySelectorAll('.fa-star').forEach((s, i) => { s.classList.remove('filled'); s.className = 'fa-regular fa-star'; s.dataset.r = i + 1; });
+      document.getElementById('rate-recommendation').value = '';
+      document.getElementById('modal-rate').classList.add('show');
+    }
+    document.getElementById('rate-stars').addEventListener('click', (e) => {
+      const star = e.target.closest('.fa-star');
+      if (!star) return;
+      const starsEl = document.getElementById('rate-stars');
+      const r = parseInt(star.dataset.r, 10);
+      window._rateStars = r;
+      starsEl.querySelectorAll('.fa-star').forEach((s, i) => {
+        s.classList.toggle('filled', i < r);
+        s.className = (i < r ? 'fa-solid' : 'fa-regular') + ' fa-star';
+      });
+    });
+    document.getElementById('btn-submit-rate').addEventListener('click', () => {
+      const data = window._rateAfterApprove;
+      if (!data || !data.sitterId) { document.getElementById('modal-rate').classList.remove('show'); return; }
+      const stars = window._rateStars || 0;
+      if (stars < 1 || stars > 5) { showToast('נא לבחור דירוג 1-5 כוכבים'); return; }
+      const recommendation = document.getElementById('rate-recommendation').value.trim();
+      const ratings = load(STORAGE.sitter_ratings);
+      ratings.push({ sitterId: data.sitterId, fromUserId: getCurrentUserId(), applicationId: data.appId, stars, recommendation, createdAt: Date.now() });
+      save(STORAGE.sitter_ratings, ratings);
+      document.getElementById('modal-rate').classList.remove('show');
+      showToast('הדירוג נשמר');
+      window._rateAfterApprove = null;
+      if (data.adId) renderCandidates(data.adId);
+    });
+
+    function onGoogleAuth() {
+      showToast('באבנייה – התחברות עם Google');
+    }
+    document.getElementById('btn-login-google').addEventListener('click', onGoogleAuth);
+    document.getElementById('btn-register-google').addEventListener('click', onGoogleAuth);
+
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      clearCurrentUser();
+      screenStack = ['login'];
+      showScreen('login', true);
+      showToast('התנתקת');
+    });
+
+    if (sessionStorage.getItem(ADMIN_SESSION_KEY)) {
+      screenStack = ['admin'];
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-admin').classList.add('active');
+      renderAdminPanel();
+    } else if (getCurrentUserId()) {
+      screenStack = ['home'];
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-home').classList.add('active');
+    }
+    document.getElementById('admin-logout').addEventListener('click', () => {
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      showToast('התנתקת מפאנל הניהול');
+      screenStack = ['login'];
+      showScreen('login', true);
+    });
+    document.querySelectorAll('[data-back]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (screenStack.length > 1) {
+          screenStack.pop();
+          showScreen(screenStack[screenStack.length - 1], true);
+        } else {
+          showScreen('home', true);
+        }
+      });
+    });
+
+    // פרופיל בעל כלב
+    const ownerAvatarWrap = document.getElementById('owner-avatar-wrap');
+    const ownerPhotoInput = document.getElementById('owner-photo');
+    ownerAvatarWrap.addEventListener('click', () => ownerPhotoInput.click());
+    ownerPhotoInput.addEventListener('change', (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => { ownerAvatarWrap.innerHTML = '<img src="' + r.result + '" alt="">'; };
+      r.readAsDataURL(f);
+    });
+
+    document.getElementById('save-owner-profile').addEventListener('click', () => {
+      const uid = getCurrentUserId();
+      if (!uid) { showToast('נא להתחבר'); return; }
+      const name = document.getElementById('owner-name').value.trim();
+      const phone = document.getElementById('owner-phone').value.trim();
+      const sensitivities = document.getElementById('owner-sensitivities').value.trim();
+      const img = ownerAvatarWrap.querySelector('img');
+      const imageData = img ? img.src : '';
+      if (!phone) { showToast('נא למלא טלפון'); return; }
+      const owners = load(STORAGE.owners);
+      const existing = owners.find(o => o.userId === uid);
+      const rec = {
+        id: existing ? existing.id : 'o_' + Date.now(),
+        userId: uid,
+        name: name || 'בעל כלב',
+        phone,
+        sensitivities,
+        imageData,
+        updatedAt: Date.now()
+      };
+      if (!existing) owners.push(rec);
+      else Object.assign(existing, rec);
+      save(STORAGE.owners, owners);
+      showToast('הפרופיל נשמר');
+      showScreen('my-ads');
+    });
+
+    // טעינת פרופיל בעל כלב בעריכה
+    function loadOwnerProfile() {
+      const id = getCurrentOwnerId();
+      if (!id) return;
+      const owners = load(STORAGE.owners);
+      const o = owners.find(x => x.id === id);
+      if (!o) return;
+      document.getElementById('owner-name').value = o.name || '';
+      document.getElementById('owner-phone').value = o.phone || '';
+      document.getElementById('owner-sensitivities').value = o.sensitivities || '';
+      if (o.imageData) ownerAvatarWrap.innerHTML = '<img src="' + o.imageData + '" alt="">';
+    }
+    document.getElementById('screen-owner-profile').addEventListener('focus', loadOwnerProfile, true);
+
+    // פרופיל דוגיסיטר
+    document.getElementById('save-sitter-profile').addEventListener('click', () => {
+      const uid = getCurrentUserId();
+      if (!uid) { showToast('נא להתחבר'); return; }
+      const name = document.getElementById('sitter-name').value.trim();
+      const phone = document.getElementById('sitter-phone').value.trim();
+      const details = document.getElementById('sitter-details').value.trim();
+      if (!phone) { showToast('נא למלא טלפון'); return; }
+      const sitters = load(STORAGE.sitters);
+      const existing = sitters.find(s => s.userId === uid);
+      const rec = {
+        id: existing ? existing.id : 's_' + Date.now(),
+        userId: uid,
+        name: name || 'דוגיסיטר',
+        phone,
+        details,
+        updatedAt: Date.now()
+      };
+      if (!existing) sitters.push(rec);
+      else Object.assign(existing, rec);
+      save(STORAGE.sitters, sitters);
+      showToast('הפרופיל נשמר');
+      showScreen('bulletin');
+    });
+
+    function loadSitterProfile() {
+      const id = getCurrentSitterId();
+      if (!id) return;
+      const sitters = load(STORAGE.sitters);
+      const s = sitters.find(x => x.id === id);
+      if (!s) return;
+      document.getElementById('sitter-name').value = s.name || '';
+      document.getElementById('sitter-phone').value = s.phone || '';
+      document.getElementById('sitter-details').value = s.details || '';
+    }
+    document.getElementById('screen-sitter-profile').addEventListener('focus', loadSitterProfile, true);
+
+    // יצירת מודעה
+    document.getElementById('publish-ad').addEventListener('click', () => {
+      const uid = getCurrentUserId();
+      if (hasActiveWarning(uid)) { showToast('אין באפשרותך לפרסם מודעות בשל אזהרה פעילה'); return; }
+      const ownerId = getCurrentOwnerId();
+      if (!ownerId) { showToast('נא ליצור קודם פרופיל בעל כלב'); showScreen('owner-profile'); return; }
+      const type = document.querySelector('input[name="ad-type"]:checked').value;
+      const timeRange = document.getElementById('ad-time').value.trim();
+      const groupOrSolo = document.querySelector('input[name="ad-group"]:checked').value;
+      const notes = document.getElementById('ad-notes').value.trim();
+      const amount = document.getElementById('ad-amount').value.trim();
+      const paymentMethod = document.querySelector('input[name="ad-payment"]:checked').value;
+      const ads = load(STORAGE.ads);
+      const ad = {
+        id: 'a_' + Date.now(),
+        ownerId,
+        type,
+        timeRange: timeRange || 'גמיש',
+        groupOrSolo,
+        notes,
+        amount: amount || 'לפי договור',
+        paymentMethod,
+        status: 'open',
+        createdAt: Date.now()
+      };
+      ads.push(ad);
+      save(STORAGE.ads, ads);
+      showToast('המודעה פורסמה');
+      showScreen('my-ads');
+    });
+
+    function adTypeLabel(type) { return type === 'daily_sitting' ? 'שמירה יומית' : 'טיול בודד'; }
+    function paymentLabel(p) { return p === 'bit' ? 'ביט' : 'מזומן'; }
+
+    function renderBulletin() {
+      const ads = load(STORAGE.ads).filter(a => a.status === 'open');
+      const list = document.getElementById('bulletin-list');
+      const empty = document.getElementById('bulletin-empty');
+      list.innerHTML = '';
+      if (ads.length === 0) { empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      ads.forEach(ad => {
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.innerHTML = `
+          <span class="ad-badge ${ad.type === 'daily_sitting' ? 'sitting' : 'walk'}">${adTypeLabel(ad.type)}</span>
+          <h3>${ad.timeRange || 'גמיש'}</h3>
+          <p class="ad-meta">${ad.groupOrSolo === 'group' ? 'בלהקה' : 'לבד'} · ${paymentLabel(ad.paymentMethod)}</p>
+          <p class="ad-amount">${ad.amount ? ad.amount + ' ₪' : 'לפי договור'}</p>
+          ${ad.notes ? '<p class="card-muted" style="margin-top:6px">' + ad.notes + '</p>' : ''}
+        `;
+        div.addEventListener('click', () => { window._viewAdId = ad.id; showScreen('ad-detail'); renderAdDetail(ad); });
+        list.appendChild(div);
+      });
+    }
+
+    function renderAdDetail(ad) {
+      const wrap = document.getElementById('ad-detail-content');
+      wrap.innerHTML = `
+        <span class="ad-badge ${ad.type === 'daily_sitting' ? 'sitting' : 'walk'}">${adTypeLabel(ad.type)}</span>
+        <h3 style="margin-top:8px">${ad.timeRange || 'גמיש'}</h3>
+        <p class="ad-meta">${ad.groupOrSolo === 'group' ? 'בלהקה' : 'לבד'} · ${paymentLabel(ad.paymentMethod)}</p>
+        <p class="ad-amount">${ad.amount ? ad.amount + ' ₪' : 'לפי договור'}</p>
+        ${ad.notes ? '<p class="card-muted" style="margin-top:8px">' + ad.notes + '</p>' : ''}
+      `;
+    }
+
+    document.getElementById('submit-candidacy').addEventListener('click', () => {
+      const uid = getCurrentUserId();
+      if (hasActiveWarning(uid)) { showToast('אין באפשרותך להגיש מועמדות בשל אזהרה פעילה'); return; }
+      const sitterId = getCurrentSitterId();
+      const adId = window._viewAdId;
+      if (!sitterId) { showToast('נא ליצור קודם פרופיל דוגיסיטר'); showScreen('sitter-profile'); return; }
+      if (!adId) { showToast('מודעה לא נמצאה'); return; }
+      const applications = load(STORAGE.applications);
+      if (applications.some(a => a.adId === adId && a.sitterId === sitterId)) {
+        showToast('כבר הגשת מועמדות למודעה זו');
+        return;
+      }
+      applications.push({ id: 'app_' + Date.now(), adId, sitterId, status: 'pending', createdAt: Date.now() });
+      save(STORAGE.applications, applications);
+      showToast('המועמדות נשלחה');
+      showScreen('bulletin');
+    });
+
+    function renderMyAds() {
+      const ownerId = getCurrentOwnerId();
+      const ads = load(STORAGE.ads).filter(a => a.ownerId === ownerId);
+      const list = document.getElementById('my-ads-list');
+      const empty = document.getElementById('my-ads-empty');
+      list.innerHTML = '';
+      if (!ownerId || ads.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      ads.forEach(ad => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+          <span class="ad-badge ${ad.type === 'daily_sitting' ? 'sitting' : 'walk'}">${adTypeLabel(ad.type)}</span>
+          <h3 style="margin-top:8px">${ad.timeRange || 'גמיש'}</h3>
+          <p class="ad-meta">${ad.amount ? ad.amount + ' ₪' : 'לפי договור'}</p>
+          <button type="button" class="btn btn-secondary btn-block" data-ad-id="${ad.id}">צפה במועמדים</button>
+        `;
+        div.querySelector('button').addEventListener('click', () => {
+          window._candidatesAdId = ad.id;
+          showScreen('candidates');
+          renderCandidates(ad.id);
+        });
+        list.appendChild(div);
+      });
+    }
+
+    function renderCandidates(adId) {
+      const ad = load(STORAGE.ads).find(a => a.id === adId);
+      const applications = load(STORAGE.applications).filter(a => a.adId === adId);
+      const sitters = load(STORAGE.sitters);
+      const info = document.getElementById('candidates-ad-info');
+      const list = document.getElementById('candidates-list');
+      const empty = document.getElementById('candidates-empty');
+      info.innerHTML = ad ? `<strong>${adTypeLabel(ad.type)}</strong> – ${ad.timeRange || 'גמיש'}` : '';
+      list.innerHTML = '';
+      if (applications.length === 0) { empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      applications.forEach(app => {
+        const sitter = sitters.find(s => s.id === app.sitterId);
+        const avg = sitter ? getAverageRating(sitter.id) : null;
+        const ratingHtml = avg != null ? '<span class="sitter-rating"><i class="fa-solid fa-star filled"></i> ' + avg + '</span>' : '';
+        const div = document.createElement('div');
+        div.className = 'card';
+        const approved = app.status === 'approved';
+        div.innerHTML = `
+          <div class="candidate-row">
+            <div class="candidate-info">
+              <div class="candidate-name">${sitter ? sitter.name : 'דוגיסיטר'} ${ratingHtml}</div>
+              <div class="candidate-details">${sitter ? sitter.details || '—' : '—'}</div>
+              ${approved ? '<div class="phone-reveal">טלפון: ' + (sitter ? sitter.phone : '') + '</div>' : ''}
+            </div>
+            ${!approved ? '<button type="button" class="btn btn-primary approve-btn" data-app-id="' + app.id + '">אישור בקשה</button>' : '<span style="color:var(--primary);font-weight:600">אושר</span>'}
+          </div>
+        `;
+        const btn = div.querySelector('.approve-btn');
+        if (btn) btn.addEventListener('click', () => approveApplication(app.id, adId));
+        list.appendChild(div);
+      });
+    }
+
+    function approveApplication(appId, adId) {
+      const uid = getCurrentUserId();
+      if (hasActiveWarning(uid)) { showToast('אין באפשרותך לאשר בקשות בשל אזהרה פעילה'); return; }
+      const applications = load(STORAGE.applications);
+      const app = applications.find(a => a.id === appId);
+      if (!app) return;
+      app.status = 'approved';
+      save(STORAGE.applications, applications);
+      showToast('הבקשה אושרה – שני הצדדים יכולים לראות טלפון');
+      window._rateAfterApprove = { appId, adId, sitterId: app.sitterId };
+      openRateModal();
+    }
+
+    function renderMyApplications() {
+      const sitterId = getCurrentSitterId();
+      const applications = load(STORAGE.applications).filter(a => a.sitterId === sitterId);
+      const ads = load(STORAGE.ads);
+      const owners = load(STORAGE.owners);
+      const list = document.getElementById('my-applications-list');
+      const empty = document.getElementById('my-applications-empty');
+      list.innerHTML = '';
+      if (!sitterId || applications.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      applications.forEach(app => {
+        const ad = ads.find(a => a.id === app.adId);
+        const owner = ad ? owners.find(o => o.id === ad.ownerId) : null;
+        const div = document.createElement('div');
+        div.className = 'card';
+        const approved = app.status === 'approved';
+        div.innerHTML = `
+          <div class="candidate-name">${ad ? adTypeLabel(ad.type) : ''} – ${ad ? (ad.timeRange || 'גמיש') : ''}</div>
+          <div class="candidate-details">סטטוס: ${approved ? 'אושר' : 'ממתין'}</div>
+          ${approved && owner ? '<div class="phone-reveal">טלפון בעל הכלב: ' + owner.phone + '</div>' : ''}
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    document.getElementById('btn-my-applications').addEventListener('click', () => showScreen('my-applications'));
+
+    const owners = () => load(STORAGE.owners);
+    const sitters = () => load(STORAGE.sitters);
+
+    function renderAdminPanel() {
+      const users = load(STORAGE.auth_users);
+      const ads = load(STORAGE.ads).filter(a => a.status === 'open');
+      const ownersList = owners();
+      const sittersList = sitters();
+      const warnings = load(STORAGE.user_warnings);
+      const now = Date.now();
+      const usersList = document.getElementById('admin-users-list');
+      const usersEmpty = document.getElementById('admin-users-empty');
+      const adsList = document.getElementById('admin-ads-list');
+      const adsEmpty = document.getElementById('admin-ads-empty');
+      usersList.innerHTML = '';
+      adsList.innerHTML = '';
+      if (users.length === 0) usersEmpty.style.display = 'block'; else usersEmpty.style.display = 'none';
+      if (ads.length === 0) adsEmpty.style.display = 'block'; else adsEmpty.style.display = 'none';
+      users.forEach(u => {
+        const owner = ownersList.find(o => o.userId === u.id);
+        const sitter = sittersList.find(s => s.userId === u.id);
+        const warned = warnings.some(w => w.userId === u.id && w.expiresAt > now);
+        const card = document.createElement('div');
+        card.className = 'admin-user-card' + (warned ? ' warned' : '');
+        let details = 'אימייל: ' + (u.email || '—') + '<br>סיסמה: ' + (u.password || '—');
+        if (owner) details += '<br>פרופיל בעל כלב: ' + (owner.name || '') + ', טלפון ' + (owner.phone || '') + (owner.sensitivities ? ', רגישויות: ' + owner.sensitivities : '');
+        if (sitter) details += '<br>פרופיל דוגיסיטר: ' + (sitter.name || '') + ', טלפון ' + (sitter.phone || '') + (sitter.details ? ', פרטים: ' + sitter.details : '');
+        card.innerHTML = `
+          <div class="user-summary">${u.email || u.id}</div>
+          <div class="user-details">${details}</div>
+          <div class="user-actions">
+            <button type="button" class="btn-warning" data-user-id="${u.id}" title="הגדר אזהרה"><i class="fa-solid fa-circle-exclamation"></i> אזהרה</button>
+            <button type="button" class="btn-edit" data-user-id="${u.id}" data-user-email="${(u.email || '').replace(/"/g, '&quot;')}" title="עריכת אימייל">עריכה</button>
+            <button type="button" class="btn btn-danger" data-user-id="${u.id}" title="מחיקת משתמש">מחק משתמש</button>
+          </div>
+        `;
+        card.querySelector('.btn-warning').addEventListener('click', (e) => { e.stopPropagation(); openWarningModal(u.id); });
+        card.querySelector('.btn-edit').addEventListener('click', (e) => { e.stopPropagation(); openEditUsernameModal(u.id, u.email); });
+        card.querySelector('.btn.btn-danger').addEventListener('click', (e) => { e.stopPropagation(); deleteUser(u.id); });
+        usersList.appendChild(card);
+      });
+      ads.forEach(ad => {
+        const row = document.createElement('div');
+        row.className = 'admin-row';
+        row.innerHTML = `
+          <span class="admin-row-text"><span class="ad-badge ${ad.type === 'daily_sitting' ? 'sitting' : 'walk'}">${adTypeLabel(ad.type)}</span> ${ad.timeRange || 'גמיש'} – ${ad.amount ? ad.amount + ' ₪' : 'לפי договור'}</span>
+          <button type="button" class="btn-edit" data-ad-id="${ad.id}"><i class="fa-solid fa-pen"></i> עריכה</button>
+          <button type="button" class="btn btn-danger" data-ad-id="${ad.id}"><i class="fa-solid fa-trash"></i> מחק</button>
+        `;
+        row.querySelector('.btn-edit').addEventListener('click', (e) => { e.stopPropagation(); openEditAdModal(ad); });
+        row.querySelector('.btn.btn-danger').addEventListener('click', (e) => { e.stopPropagation(); deleteAd(ad.id); });
+        adsList.appendChild(row);
+      });
+    }
+    function deleteAd(adId) {
+      const ads = load(STORAGE.ads).filter(a => a.id !== adId);
+      save(STORAGE.ads, ads);
+      showToast('המודעה נמחקה');
+      renderAdminPanel();
+    }
+    function deleteUser(userId) {
+      if (!confirm('למחוק משתמש זה? יימחקו גם פרופיליו ומודעותיו.')) return;
+      const ownerIdsToRemove = load(STORAGE.owners).filter(o => o.userId === userId).map(o => o.id);
+      let users = load(STORAGE.auth_users).filter(u => u.id !== userId);
+      save(STORAGE.auth_users, users);
+      let ownersList = load(STORAGE.owners).filter(o => o.userId !== userId);
+      save(STORAGE.owners, ownersList);
+      let sittersList = load(STORAGE.sitters).filter(s => s.userId !== userId);
+      save(STORAGE.sitters, sittersList);
+      let ads = load(STORAGE.ads).filter(a => !ownerIdsToRemove.includes(a.ownerId));
+      save(STORAGE.ads, ads);
+      showToast('המשתמש נמחק');
+      renderAdminPanel();
+    }
+    function openEditAdModal(ad) {
+      window._editAdId = ad.id;
+      document.querySelector('input[name="edit-ad-type"][value="' + ad.type + '"]').checked = true;
+      document.getElementById('edit-ad-time').value = ad.timeRange || '';
+      document.querySelector('input[name="edit-ad-group"][value="' + ad.groupOrSolo + '"]').checked = true;
+      document.getElementById('edit-ad-notes').value = ad.notes || '';
+      document.getElementById('edit-ad-amount').value = ad.amount || '';
+      document.querySelector('input[name="edit-ad-payment"][value="' + ad.paymentMethod + '"]').checked = true;
+      document.getElementById('modal-edit-ad').classList.add('show');
+    }
+    function openEditUsernameModal(userId, currentEmail) {
+      window._editUserId = userId;
+      document.getElementById('edit-user-email').value = currentEmail || '';
+      document.getElementById('modal-edit-username').classList.add('show');
+    }
+    function openWarningModal(userId) {
+      window._warningUserId = userId;
+      document.getElementById('warning-reason').value = 'הברזה';
+      document.getElementById('warning-days').value = 3;
+      document.getElementById('modal-warning').classList.add('show');
+    }
+    document.getElementById('btn-save-edit-ad').addEventListener('click', () => {
+      const adId = window._editAdId;
+      if (!adId) return;
+      const ads = load(STORAGE.ads);
+      const ad = ads.find(a => a.id === adId);
+      if (!ad) return;
+      ad.type = document.querySelector('input[name="edit-ad-type"]:checked').value;
+      ad.timeRange = document.getElementById('edit-ad-time').value.trim() || 'גמיש';
+      ad.groupOrSolo = document.querySelector('input[name="edit-ad-group"]:checked').value;
+      ad.notes = document.getElementById('edit-ad-notes').value.trim();
+      ad.amount = document.getElementById('edit-ad-amount').value.trim() || 'לפי договור';
+      ad.paymentMethod = document.querySelector('input[name="edit-ad-payment"]:checked').value;
+      save(STORAGE.ads, ads);
+      document.getElementById('modal-edit-ad').classList.remove('show');
+      showToast('המודעה עודכנה');
+      renderAdminPanel();
+    });
+    document.getElementById('btn-cancel-edit-ad').addEventListener('click', () => document.getElementById('modal-edit-ad').classList.remove('show'));
+    document.getElementById('btn-save-edit-username').addEventListener('click', () => {
+      const userId = window._editUserId;
+      const email = document.getElementById('edit-user-email').value.trim();
+      if (!userId || !email) { showToast('נא להזין אימייל'); return; }
+      const users = load(STORAGE.auth_users);
+      const u = users.find(x => x.id === userId);
+      if (u) { u.email = email; save(STORAGE.auth_users, users); showToast('עודכן'); }
+      document.getElementById('modal-edit-username').classList.remove('show');
+      renderAdminPanel();
+    });
+    document.getElementById('btn-cancel-edit-username').addEventListener('click', () => document.getElementById('modal-edit-username').classList.remove('show'));
+    document.getElementById('btn-save-warning').addEventListener('click', () => {
+      const userId = window._warningUserId;
+      const reason = document.getElementById('warning-reason').value.trim() || 'הברזה';
+      const days = parseInt(document.getElementById('warning-days').value, 10) || 3;
+      if (!userId) return;
+      const warnings = load(STORAGE.user_warnings);
+      warnings.push({ userId, reason, expiresAt: Date.now() + days * 24 * 60 * 60 * 1000, createdAt: Date.now() });
+      save(STORAGE.user_warnings, warnings);
+      document.getElementById('modal-warning').classList.remove('show');
+      showToast('האזהרה הופעלה ל־' + days + ' ימים');
+      renderAdminPanel();
+    });
+    document.getElementById('btn-cancel-warning').addEventListener('click', () => document.getElementById('modal-warning').classList.remove('show'));
+    document.getElementById('modal-edit-ad').addEventListener('click', (e) => { if (e.target.id === 'modal-edit-ad') e.target.classList.remove('show'); });
+    document.getElementById('modal-edit-username').addEventListener('click', (e) => { if (e.target.id === 'modal-edit-username') e.target.classList.remove('show'); });
+    document.getElementById('modal-warning').addEventListener('click', (e) => { if (e.target.id === 'modal-warning') e.target.classList.remove('show'); });
+    document.getElementById('modal-rate').addEventListener('click', (e) => {
+      if (e.target.id === 'modal-rate') {
+        e.target.classList.remove('show');
+        if (window._rateAfterApprove && window._rateAfterApprove.adId) renderCandidates(window._rateAfterApprove.adId);
+        window._rateAfterApprove = null;
+      }
+    });
+  </script>
+</body>
+</html>
